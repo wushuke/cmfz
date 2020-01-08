@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.wsk.dao.UserDao">
+    <select id="queryUserByTime" resultType="Integer">
+        select count(*) from user where sex = #{sex} and DATE_SUB(NOW(),INTERVAL #{day} day) &lt; rigest_date
+    </select>
+
+    <select id="map" resultType="com.baizhi.wsk.entity.UserMapDTO">
+        select location name, count(*) value from user where sex = #{sex} group by location
+    </select>
+
+    <select id="login" resultType="com.baizhi.wsk.entity.User">
+        select id,phone,password,photo,name,nick_name,sex,sign,location from user where phone=#{phone} and password=#{password}
+    </select>
+
+    <select id="oneSelect" resultType="com.baizhi.wsk.entity.Course" parameterType="String">
+        select c.id,c.title from user u left join course c on u.id= c.user_id where u.id=#{id}
+    </select>
+
+    <update id="update">
+        update user set nick_name=#{nick_name},password=#{password} where id=#{uid}
+    </update>
+
+    <select id="redSelect" resultType="com.baizhi.wsk.entity.User">
+        SELECT * FROM USER ORDER BY RAND() LIMIT 5
+    </select>
+
+    <insert id="register">
+        insert into user (id) values (#{id})
+    </insert>
+
+    <update id="replenish">
+        update user
+            <set>
+                <if test="password!=null">password=#{password},</if>
+                <if test="photo!=null">photo=#{photo},</if>
+                <if test="name!=null">name=#{name},</if>
+                <if test="nick_name!=null">nick_name=#{nick_name},</if>
+                <if test="sex!=null">sex=#{sex},</if>
+                <if test="sign!=null">sign=#{sign},</if>
+                <if test="location!=null">location=#{location},</if>
+            </set>
+        where id=#{id}
+    </update>
+
+    <select id="selectOnePerson" resultType="com.baizhi.wsk.entity.Course">
+        select  * from user where id=#{id}
+    </select>
+
+    <insert id="userGuru">
+        insert into userguru values (#{uuid},#{id},#{uid})
+    </insert>
+
+    <select id="selectGuru" resultType="com.baizhi.wsk.entity.Guru">
+        select g.* from user u JOIN userguru ug on u.id=ug.userId
+        join guru g on ug.guruId=g.id where u.id=#{uid}
+    </select>
+
+</mapper>

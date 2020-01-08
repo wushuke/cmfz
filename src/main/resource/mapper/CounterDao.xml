@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.baizhi.wsk.dao.CounterDao">
+
+    <select id="selects" resultType="com.baizhi.wsk.entity.Counter">
+        select id ,title,counts,create_date from counter where user_id=#{uid} and course_id=#{id}
+    </select>
+
+    <select id="selectAll" resultType="com.baizhi.wsk.entity.Counter">
+        select id ,title,counts,create_date from counter
+    </select>
+
+    <insert id="insert">
+        insert into  counter(id,user_id,title) values (#{id},#{uid},#{title})
+    </insert>
+
+    <delete id="delete">
+        delete from counter where id=#{id} and user_id=#{uid}
+    </delete>
+
+    <update id="update" >
+        update counter set counts=#{counts} where id=#{id} and user_id=#{uid}
+    </update>
+
+
+
+</mapper>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.baizhi.wsk.dao.ArticleDao">
+
+    <select id="selectOnee" resultType="com.baizhi.wsk.entity.Article" >
+        select id,guru_id,img,title,content from article where id=#{id}
+    </select>
+
+    <select id="selects" resultType="com.baizhi.wsk.entity.Article">
+        select a.* from article a left join album m on m.id=a.guru_id
+    </select>
+
+
+
+</mapper>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.baizhi.wsk.dao.CourseDao">
+
+<insert id="insert" >
+    insert into course(id,user_id,title) values(#{id},#{uid},#{title})
+</insert>
+    <!-- 删除功课 -->
+    <delete id="delete">
+        delete from course where id=#{id} and user_id=#{uid}
+    </delete>
+    <!-- 查所有功课 -->
+    <select id="selectAll" resultType="com.baizhi.wsk.entity.Course">
+        select * from course
+    </select>
+
+</mapper>
